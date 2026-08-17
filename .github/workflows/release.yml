@@ -84,16 +84,35 @@ jobs:
           echo "$SHA256" > "$TAR.sha256"
           echo "sha256($TAR) = $SHA256"
 
-      - name: Upload release asset
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "$GITHUB_REF_NAME" "dist/$TAR" --clobber
-
-      - name: Upload sha256 artifact
+      # The build containers have no gh CLI, so artifacts are handed to the
+      # publish job, which runs directly on the runner.
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: sha256-${{ matrix.os }}-${{ matrix.arch }}
-          path: dist/*.sha256
+          name: dist-${{ matrix.os }}-${{ matrix.arch }}
+          path: |
+            dist/*.tar.gz
+            dist/*.sha256
+
+  publish:
+    name: Attach release assets
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: dist-*
+          path: dist
+          merge-multiple: true
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ls -l dist
+          gh release upload "$GITHUB_REF_NAME" dist/*.tar.gz \
+            --repo "$GITHUB_REPOSITORY" --clobber
 
   verify-linux:
     name: Verify Linux binary on ${{ matrix.image }}
@@ -105,15 +124,12 @@ jobs:
         image: ["debian:12", "ubuntu:22.04", "ubuntu:24.04"]
     steps:
       - name: Download Linux tarball
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          gh release download "$GITHUB_REF_NAME" \
-            --repo "$GITHUB_REPOSITORY" \
-            --pattern "garmin-cli-${VERSION}-linux-x86_64.tar.gz" \
-            --dir .
-          tar -xzf "garmin-cli-${VERSION}-linux-x86_64.tar.gz"
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-linux-x86_64
+
+      - name: Extract
+        run: tar -xzf garmin-cli-*-linux-x86_64.tar.gz
 
       - name: Run in ${{ matrix.image }}
         run: |
@@ -122,7 +138,7 @@ jobs:
 
   bump-tap:
     name: Bump Homebrew tap
-    needs: [build, verify-linux]
+    needs: [build, publish, verify-linux]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -130,7 +146,7 @@ jobs:
       - name: Download sha256 artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: sha256-*
+          pattern: dist-*
           path: shas
           merge-multiple: true
 
