@@ -24,6 +24,10 @@ jobs:
             os: macos
             arch: arm64
             container: ""
+          - runner: macos-15-intel # macos-13 was retired Dec 2025
+            os: macos
+            arch: x86_64
+            container: ""
           - runner: ubuntu-24.04
             os: linux
             arch: x86_64
@@ -157,6 +161,7 @@ jobs:
           VERSION="$VERSION" \
           TAG="$GITHUB_REF_NAME" \
           SHA256_MACOS_ARM64="$(read_sha macos-arm64)" \
+          SHA256_MACOS_X86_64="$(read_sha macos-x86_64)" \
           SHA256_LINUX_X86_64="$(read_sha linux-x86_64)" \
           SHA256_LINUX_AARCH64="$(read_sha linux-aarch64)" \
             packaging/render-formula.sh > garmin-cli.rb
