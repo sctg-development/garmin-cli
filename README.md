@@ -11,6 +11,10 @@ A fully non-interactive CLI to read health data from Garmin Connect.
 brew install voydz/tap/garmin-cli
 ```
 
+Works with both Homebrew on macOS and Homebrew on Linux (Linuxbrew). Prebuilt
+binaries are published for macOS arm64, Linux x86_64, and Linux aarch64; the
+Linux builds require glibc 2.35 or newer.
+
 Or install from source with [uv](https://docs.astral.sh/uv/):
 
 ```bash

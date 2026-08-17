@@ -1,6 +1,25 @@
-.PHONY: setup run build clean lint lint-fix package smoke
+.PHONY: setup run build clean lint lint-fix package smoke print-tarball print-version
 
 .DEFAULT_GOAL := check
+
+UNAME_S := $(shell uname -s)
+UNAME_M := $(shell uname -m)
+
+ifeq ($(UNAME_S),Darwin)
+PLATFORM := macos
+ARCH := $(UNAME_M)
+SHA256SUM := shasum -a 256
+# --target-arch is Mach-O only; PyInstaller rejects it on other platforms.
+TARGET_ARCH_FLAG := --target-arch $(ARCH)
+else
+PLATFORM := linux
+ARCH := $(UNAME_M)
+SHA256SUM := sha256sum
+TARGET_ARCH_FLAG :=
+endif
+
+VERSION := $(shell grep '^version' pyproject.toml | head -1 | cut -d'"' -f2)
+TARBALL := garmin-cli-$(VERSION)-$(PLATFORM)-$(ARCH).tar.gz
 
 setup:
 	uv venv
@@ -26,19 +45,24 @@ build:
 	uv run pyinstaller \
 		--onefile \
 		--name gc \
-		--target-arch arm64 \
+		$(TARGET_ARCH_FLAG) \
 		--add-data "src/garmincli/commands:garmincli/commands" \
 		--collect-all garminconnect \
 		--hidden-import garth \
 		src/garmincli/__main__.py
 
 package: build
-	@set -e; 
-	VERSION=$$(grep '^version' pyproject.toml | head -1 | cut -d'"' -f2); 
-	echo "Packaging gc v$$VERSION..."; 
-	cd dist && 
-	tar -czf "garmin-cli-$$VERSION-macos.tar.gz" gc && 
-	shasum -a 256 "garmin-cli-$$VERSION-macos.tar.gz"
+	@set -e; \
+	echo "Packaging gc v$(VERSION) for $(PLATFORM)-$(ARCH)..."; \
+	cd dist && \
+	tar -czf "$(TARBALL)" gc && \
+	$(SHA256SUM) "$(TARBALL)"
+
+print-tarball:
+	@echo "$(TARBALL)"
+
+print-version:
+	@echo "$(VERSION)"
 
 smoke: build
 	@set -e; \

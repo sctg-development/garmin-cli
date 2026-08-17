@@ -9,11 +9,37 @@ permissions:
   pull-requests: write
 
 jobs:
-  build-and-bump-tap:
-    runs-on: macos-14  # Apple Silicon runner
-    env:
-      HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+  build:
+    name: Build ${{ matrix.os }}-${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    # Linux binaries are built inside ubuntu:22.04 (glibc 2.35) so they run on
+    # the same baseline Homebrew's own Linux bottles target. Building on the
+    # bare ubuntu-24.04 runner would hard-require glibc 2.39.
+    container: ${{ matrix.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-14 # Apple Silicon
+            os: macos
+            arch: arm64
+            container: ""
+          - runner: ubuntu-24.04
+            os: linux
+            arch: x86_64
+            container: "ubuntu:22.04"
+          - runner: ubuntu-24.04-arm
+            os: linux
+            arch: aarch64
+            container: "ubuntu:22.04"
     steps:
+      - name: Install container prerequisites
+        if: matrix.container != ''
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates curl git make binutils xz-utils tar gzip
+
       - uses: actions/checkout@v4
 
       - name: Install uv
@@ -26,37 +52,126 @@ jobs:
           uv python install 3.13
           make setup
 
+      - name: Resolve version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          PROJECT_VERSION="$(grep '^version' pyproject.toml | head -1 | cut -d'"' -f2)"
+          if [ "$PROJECT_VERSION" != "$VERSION" ]; then
+            echo "::warning::pyproject.toml version ($PROJECT_VERSION) does not match tag ($VERSION); using the tag"
+          fi
+
       - name: Build binary
-        run: make build
+        run: make build VERSION="$VERSION"
 
       - name: Smoke test binary
-        run: make smoke
+        run: make smoke VERSION="$VERSION"
 
       - name: Package tarball
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          TAR="garmin-cli-${VERSION}-macos.tar.gz"
-          tar -czf "$TAR" -C dist gc
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          make package VERSION="$VERSION"
+          TAR="$(make print-tarball VERSION="$VERSION")"
           echo "TAR=$TAR" >> "$GITHUB_ENV"
 
       - name: Compute sha256
         run: |
-          SHA256=$(shasum -a 256 "$TAR" | awk '{print $1}')
-          echo "SHA256=$SHA256" >> "$GITHUB_ENV"
+          cd dist
+          if command -v sha256sum >/dev/null; then
+            SHA256=$(sha256sum "$TAR" | awk '{print $1}')
+          else
+            SHA256=$(shasum -a 256 "$TAR" | awk '{print $1}')
+          fi
+          echo "$SHA256" > "$TAR.sha256"
+          echo "sha256($TAR) = $SHA256"
 
       - name: Upload release asset
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release upload "$GITHUB_REF_NAME" "$TAR" --clobber
+        run: gh release upload "$GITHUB_REF_NAME" "dist/$TAR" --clobber
 
-      - name: Bump tap formula
+      - name: Upload sha256 artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sha256-${{ matrix.os }}-${{ matrix.arch }}
+          path: dist/*.sha256
+
+  verify-linux:
+    name: Verify Linux binary on ${{ matrix.image }}
+    needs: build
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ["debian:12", "ubuntu:22.04", "ubuntu:24.04"]
+    steps:
+      - name: Download Linux tarball
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          URL="https://github.com/voydz/garmin-cli/releases/download/${GITHUB_REF_NAME}/${TAR}"
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          VERSION="${GITHUB_REF_NAME#v}"
+          gh release download "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern "garmin-cli-${VERSION}-linux-x86_64.tar.gz" \
+            --dir .
+          tar -xzf "garmin-cli-${VERSION}-linux-x86_64.tar.gz"
+
+      - name: Run in ${{ matrix.image }}
+        run: |
+          docker run --rm -v "$PWD:/work" -w /work "${{ matrix.image }}" \
+            /work/gc --help
+
+  bump-tap:
+    name: Bump Homebrew tap
+    needs: [build, verify-linux]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download sha256 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: sha256-*
+          path: shas
+          merge-multiple: true
+
+      - name: Render formula
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          read_sha() { cat "shas/garmin-cli-${VERSION}-$1.tar.gz.sha256"; }
+          VERSION="$VERSION" \
+          TAG="$GITHUB_REF_NAME" \
+          SHA256_MACOS_ARM64="$(read_sha macos-arm64)" \
+          SHA256_LINUX_X86_64="$(read_sha linux-x86_64)" \
+          SHA256_LINUX_AARCH64="$(read_sha linux-aarch64)" \
+            packaging/render-formula.sh > garmin-cli.rb
+          cat garmin-cli.rb
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Check out tap
+        uses: actions/checkout@v4
+        with:
+          repository: voydz/homebrew-tap
+          token: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+          path: tap
+
+      - name: Commit formula
+        working-directory: tap
+        run: |
+          cp ../garmin-cli.rb Formula/garmin-cli.rb
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- Formula/garmin-cli.rb; then
+            echo "Formula already up to date"
+            exit 0
+          fi
+          git add Formula/garmin-cli.rb
+          git commit -m "garmin-cli ${VERSION}"
+          git push
+
+      - name: Audit formula
+        continue-on-error: true # style-only findings shouldn't fail a release
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.HOMEBREW_GITHUB_API_TOKEN }}
+        run: |
           brew tap voydz/homebrew-tap
-          brew bump-formula-pr voydz/tap/garmin-cli \
-            --url "$URL" \
-            --sha256 "$SHA256"
+          brew audit --strict --online voydz/tap/garmin-cli
