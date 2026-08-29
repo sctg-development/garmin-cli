@@ -5,6 +5,7 @@ from typing import Optional
 import typer
 
 from ..api import api_call
+from ..auth import export_token as _export_token
 from ..auth import get_token_dir
 from ..auth import load_client as _load_client
 from ..auth import login as _login
@@ -14,11 +15,11 @@ from ..output import print_error, print_success, render
 
 
 def login(
-    email: str = typer.Option(
-        ..., "--email", "-e", help="Garmin Connect email.", envvar="GARMIN_EMAIL"
+    email: Optional[str] = typer.Option(
+        None, "--email", "-e", help="Garmin Connect email.", envvar="GARMIN_EMAIL"
     ),
-    password: str = typer.Option(
-        ...,
+    password: Optional[str] = typer.Option(
+        None,
         "--password",
         "-p",
         help="Garmin Connect password.",
@@ -28,6 +29,19 @@ def login(
     wait_mfa: bool = typer.Option(
         False, "--wait-mfa", help="Wait for MFA code from stdin."
     ),
+    manual: bool = typer.Option(
+        False,
+        "--manual",
+        help=(
+            "Import a token blob generated with 'gc export-token' on a machine "
+            "Garmin does not block, instead of logging in from here."
+        ),
+    ),
+    token_blob: Optional[str] = typer.Option(
+        None,
+        "--token-blob",
+        help="Token blob from 'gc export-token', for use with --manual.",
+    ),
     tokenstore: Optional[str] = typer.Option(
         None, "--tokenstore", help="Token storage path."
     ),
@@ -35,10 +49,30 @@ def login(
     """Log in to Garmin Connect."""
     try:
         client = _login(
-            email, password, mfa_code=mfa, wait_mfa=wait_mfa, tokenstore=tokenstore
+            email,
+            password,
+            mfa_code=mfa,
+            wait_mfa=wait_mfa,
+            manual=manual,
+            token_blob=token_blob,
+            tokenstore=tokenstore,
         )
         name = client.get_full_name() or client.display_name or "User"
         print_success(f"Logged in as {name}.")
+    except GarminCliError as e:
+        print_error(str(e))
+        raise typer.Exit(1)
+
+
+def export_token(
+    tokenstore: Optional[str] = typer.Option(
+        None, "--tokenstore", help="Token storage path."
+    ),
+) -> None:
+    """Print the current session as a token blob, for 'gc login --manual --token-blob' elsewhere."""
+    try:
+        blob = _export_token(tokenstore=tokenstore)
+        print(blob)
     except GarminCliError as e:
         print_error(str(e))
         raise typer.Exit(1)

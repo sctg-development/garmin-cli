@@ -38,6 +38,7 @@ def main() -> None:
 app.command("login")(auth.login)
 app.command("logout")(auth.logout)
 app.command("status")(auth.status)
+app.command("export-token")(auth.export_token)
 
 app.command("health")(health.health)
 app.command("steps")(health.steps)

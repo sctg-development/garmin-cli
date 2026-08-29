@@ -51,6 +51,29 @@ gc logout
 
 Tokens are stored in `~/.config/garmin-cli/tokens/` by default. Override with `--tokenstore PATH` or the `GARMINTOKENS` environment variable.
 
+### Logging in from a blocked host (Docker/Kubernetes)
+
+`connectapi.garmin.com` often rate-limits or blocks datacenter/cloud IPs
+outright (`429` errors), even for correctly authenticated requests, so a
+direct `gc login` from a container on a cloud host may never succeed. Work
+around this by logging in on a machine with normal internet access and
+handing the resulting session to the blocked host as an opaque token blob:
+
+```bash
+# On a machine Garmin does not block:
+gc login --email you@example.com --password yourpass
+gc export-token
+# -> prints a long base64 blob; treat it like a password
+
+# On the blocked host/container:
+gc login --manual --token-blob '<paste the blob here>'
+```
+
+`--manual` never talks to Garmin itself - it just imports the blob produced
+by `gc export-token` (via garth's token dump/load format) into the local
+token store, so it works regardless of what the blocked host's network
+egress allows.
+
 ## Usage
 
 Most commands accept a date shortcut as their first argument:
