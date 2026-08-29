@@ -5,7 +5,7 @@ from typing import Any, Optional
 
 import typer
 
-from ..api import api_call
+from ..api import api_call, raw_connectapi_call
 from ..auth import load_client
 from ..errors import GarminCliError
 from ..output import print_error, render
@@ -61,11 +61,12 @@ def connectapi(
         query_params = _parse_json(params, "params", require_object=True)
         payload = _parse_json(body, "body", require_object=False)
         data = api_call(
-            client.garth.connectapi,
+            raw_connectapi_call,
+            client,
             path,
             method=method,
             params=query_params,
-            json=payload,
+            payload=payload,
         )
         render(data, fmt=fmt, title=f"{method} {path}", output=output)
     except GarminCliError as e:

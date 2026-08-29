@@ -1,12 +1,11 @@
 """Workouts and training plans commands."""
 
-import inspect
 import json
 from typing import Any, Optional, Tuple
 
 import typer
 
-from ..api import api_call
+from ..api import api_call, raw_connectapi_call
 from ..auth import load_client
 from ..errors import GarminCliError
 from ..output import print_error, print_success, render
@@ -420,46 +419,6 @@ def _resolve_sport_type(
     raise GarminCliError("Provide --sport or --sport-id.")
 
 
-def _call_connectapi(connectapi: Any, path: str, method: str, payload: Any) -> Any:
-    try:
-        sig = inspect.signature(connectapi)
-    except (TypeError, ValueError):
-        if method != "GET":
-            raise GarminCliError("Garmin connectapi does not support non-GET methods.")
-        return connectapi(path)
-
-    kwargs: dict[str, Any] = {}
-    if "method" in sig.parameters:
-        kwargs["method"] = method
-    elif "http_method" in sig.parameters:
-        kwargs["http_method"] = method
-    elif method != "GET":
-        raise GarminCliError("Garmin connectapi does not support non-GET methods.")
-
-    accepts_kwargs = any(
-        param.kind == inspect.Parameter.VAR_KEYWORD for param in sig.parameters.values()
-    )
-    if payload is not None:
-        if "json" in sig.parameters or accepts_kwargs:
-            kwargs["json"] = payload
-        elif "data" in sig.parameters:
-            kwargs["data"] = payload
-    if method != "GET":
-        if "headers" in sig.parameters or accepts_kwargs:
-            headers = kwargs.get("headers") or {}
-            normalized = {k.upper(): v for k, v in headers.items()}
-            if "NK" not in normalized:
-                headers = dict(headers)
-                headers["NK"] = "NT"
-                normalized["NK"] = "NT"
-            if "ACCEPT" not in normalized:
-                headers = dict(headers)
-                headers["Accept"] = "application/json"
-            kwargs["headers"] = headers
-
-    return connectapi(path, **kwargs)
-
-
 def _request_with_session(session: Any, method: str, url: str, payload: Any) -> Any:
     if not hasattr(session, "request"):
         raise GarminCliError("Garmin session does not support request().")
@@ -478,16 +437,15 @@ def _request_with_session(session: Any, method: str, url: str, payload: Any) -> 
 
 
 def _workout_request(client: Any, method: str, path: str, payload: Any = None) -> Any:
-    garth = getattr(client, "garth", None)
-    if garth and hasattr(garth, "connectapi"):
-        try:
-            return _call_connectapi(garth.connectapi, path, method, payload)
-        except (TypeError, GarminCliError):
-            pass
+    try:
+        return raw_connectapi_call(client, path, method=method, payload=payload)
+    except GarminCliError:
+        pass
+    backend = getattr(client, "client", None) or getattr(client, "garth", None)
     session = None
-    for attr in ("session", "_session", "client"):
-        if garth and hasattr(garth, attr):
-            session = getattr(garth, attr)
+    for attr in ("session", "_session", "client", "cs"):
+        if backend and hasattr(backend, attr):
+            session = getattr(backend, attr)
             break
     if session:
         url = path if path.startswith("http") else f"https://connect.garmin.com{path}"
