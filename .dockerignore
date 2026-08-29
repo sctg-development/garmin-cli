@@ -1,0 +1,18 @@
+# Local dev/build artifacts that must never leak into the Docker build
+# context - a stale .venv or dist/ here breaks `uv venv` / pyinstaller with
+# confusing errors instead of a clean build from source.
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.git/
+.gc-tokens/
+.DS_Store
+.idea/
+.vscode/
