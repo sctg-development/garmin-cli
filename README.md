@@ -108,6 +108,25 @@ gc intensity --weekly
 gc events yesterday
 ```
 
+### Compact recovery history
+
+`gc daily` returns one small record per day with the recovery signals a
+coaching or analysis program needs: sleep (times, stages, score, need),
+overnight HRV and its Garmin baseline, resting heart rate, respiration, SpO2,
+skin temperature deviation, stress and body battery. It uses Garmin's range
+endpoints, so a whole month costs a few requests. Every field is nullable: a
+missing value is `null`, never `0`. Output is JSON by default.
+
+```bash
+gc daily today
+gc daily --start 2025-01-01 --end 2025-01-28          # range endpoints only
+gc daily --start 2025-01-20 --end 2025-01-28 --detail # + per-day detail, max 14 days
+gc daily yesterday --keys                             # raw payload key paths, no values
+```
+
+`--keys` prints only the key paths of the raw Garmin payloads. Use it to check
+which fields your device and account return without exposing any health value.
+
 ### Heart Rate
 
 ```bash

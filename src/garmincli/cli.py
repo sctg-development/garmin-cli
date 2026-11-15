@@ -7,6 +7,7 @@ from .commands import (
     api,
     auth,
     body,
+    daily,
     devices,
     gear,
     goals,
@@ -45,6 +46,8 @@ app.command("steps")(health.steps)
 app.command("floors")(health.floors)
 app.command("intensity")(health.intensity)
 app.command("events")(health.events)
+
+app.command("daily")(daily.daily)
 
 app.add_typer(heart.app, name="heart", help="Heart rate data.")
 app.command("sleep")(sleep.sleep_cmd)

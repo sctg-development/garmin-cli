@@ -71,6 +71,12 @@ gc intensity today
 gc intensity --weekly --weeks N
 gc events today
 
+# Compact recovery history (one small record per day, JSON by default)
+gc daily today                                    # sleep, HRV, resting HR, respiration, SpO2, skin temp, stress
+gc daily --start DATE --end DATE                  # range endpoints: a few requests for a whole month
+gc daily --start DATE --end DATE --detail         # + per-day stress/body battery/SpO2 detail (max 14 days)
+gc daily yesterday --keys                         # key paths of the raw payloads, no values (contract probe)
+
 # Heart Rate
 gc heart --date today
 gc heart resting --date today
