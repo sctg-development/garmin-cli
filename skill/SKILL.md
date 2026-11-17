@@ -143,6 +143,7 @@ gc metrics endurance-score today [--end DATE]
 gc metrics hill-score today [--end DATE]
 gc metrics lactate-threshold                      # Latest
 gc metrics lactate-threshold --no-latest --start DATE --end DATE --aggregation daily|weekly|monthly|yearly
+gc metrics anchors                                # LTHR (bpm), FTP, VO2 max from the current biometric profile; null when unknown
 gc metrics cycling-ftp
 
 # Note: `gc metrics` summary resolves `vo2max` from daily maxmet first and

@@ -30,3 +30,4 @@ Thumbs.db
 
 # uv
 .python-version
+tools/run*.json

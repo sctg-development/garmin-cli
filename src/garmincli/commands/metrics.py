@@ -4,6 +4,7 @@ from typing import Any, Callable, Optional
 
 import typer
 
+from ..anchors import from_biometric
 from ..api import api_call
 from ..auth import load_client
 from ..dates import resolve_date
@@ -352,6 +353,33 @@ def lactate_threshold(
         else:
             data = api_call(client.get_lactate_threshold, latest=True)
         render(data, fmt=fmt, title="Lactate Threshold", output=output)
+    except GarminCliError as e:
+        print_error(str(e))
+        raise typer.Exit(1)
+
+
+@app.command("anchors")
+def anchors(
+    tokenstore: Optional[str] = typer.Option(
+        None, "--tokenstore", help="Token storage path."
+    ),
+    fmt: str = typer.Option("json", "--format", "-f", help="Output format."),
+    output: Optional[str] = typer.Option(None, "--output", "-o", help="Output file."),
+) -> None:
+    """Show the athlete's anchors: lactate-threshold heart rate, FTP, VO2 max.
+
+    Read from the current biometric profile (the source the Connect web app uses). Missing or
+    implausible values are null.
+    """
+    try:
+        client = load_client(tokenstore=tokenstore)
+        name = getattr(client, "display_name", None)
+        if not name:
+            raise GarminCliError("Garmin profile name unavailable.")
+        payload = api_call(
+            client.connectapi, f"/userprofile-service/biometric/current/{name}"
+        )
+        render(from_biometric(payload), fmt=fmt, title="Anchors", output=output)
     except GarminCliError as e:
         print_error(str(e))
         raise typer.Exit(1)

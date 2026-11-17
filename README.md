@@ -217,6 +217,7 @@ gc metrics endurance-score --end 2025-01-31
 gc metrics hill-score today
 gc metrics lactate-threshold
 gc metrics lactate-threshold --no-latest --start 2025-01-01 --end 2025-06-01
+gc metrics anchors            # lactate-threshold heart rate, FTP, VO2 max from the current biometric profile (JSON, nulls when unknown)
 gc metrics cycling-ftp
 ```
 
