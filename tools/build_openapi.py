@@ -130,8 +130,17 @@ def find_display_names(paths: list[str], explicit: list[str]) -> set[str]:
 PARAM_BY_PREV = {"activity": "activityId", "ACTIVITY": "activityId", "chartconfig": "chartId", "weekly": "weeks", "im": "days", "preference": "preferenceKey"}
 
 
+# 20+ hex digits (a GUID without dashes), possibly with `{id}` placeholders where digit runs were rewritten.
+HEX_ID = re.compile(r"^(?=.*[a-f{])(?:[0-9a-f]|\{id\}){20,}$", re.IGNORECASE)
+
+
 def parametrise(path: str, display_names: set[str]) -> tuple[str, list[dict]]:
     segs = path.split("/")
+    # `curated/FR/<region>/<course>` (and the `/app/trails/...` page route) names a place near the account:
+    # keep the shape, drop the place.
+    curated = next((i for i, s in enumerate(segs) if s in ("curated", "trails")), -1)
+    if curated >= 0 and re.fullmatch(r"[A-Z]{2}", segs[curated + 1] if curated + 1 < len(segs) else "") and len(segs) > curated + 3:
+        segs[curated + 1 : curated + 4] = ["{country}", "{region}", "{course}"]
     dates = sum(1 for s in segs if s == "{date}")
     out, params, date_index = [], [], 0
     for i, seg in enumerate(segs):
@@ -146,8 +155,14 @@ def parametrise(path: str, display_names: set[str]) -> tuple[str, list[dict]]:
         elif seg == "{id}":
             name = "userProfileId" if prev == "daily" else PARAM_BY_PREV.get(prev, "id")
             schema = {"type": "integer", "format": "int64"}
-        elif seg == "{guid}":
+        elif (HEX_ID.match(seg) or seg == "{guid}") and prev != "preference":
+            # Garmin ids (gear, segment, challenge) are 32-digit hex strings; the discovery hook sometimes
+            # rewrote the digit runs inside them as `{id}`, so those mangled forms are included.
             name, schema = "guid", {"type": "string", "format": "uuid"}
+        elif prev == "preference" and seg != "{preferenceKey}":
+            # Preference keys (and the opaque ids stored under /modern/preference) are account state, not
+            # API surface: one placeholder for all of them.
+            name, schema = "preferenceKey", {"type": "string"}
         elif seg == "{email}":
             name, schema = "email", {"type": "string"}
         elif seg.isdigit():
