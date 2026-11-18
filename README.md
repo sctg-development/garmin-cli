@@ -221,6 +221,19 @@ gc metrics anchors            # lactate-threshold heart rate, FTP, VO2 max from 
 gc metrics cycling-ftp
 ```
 
+### Discovered endpoints
+
+`gc connect` returns the raw payload of any read-only endpoint found in the Garmin Connect web app
+(about 95, listed by `gc connect list`). The table is generated from `docs/garmin-connect.openapi.json`
+and is shared with `garmin-ts connect`.
+
+```bash
+gc connect list
+gc connect hrv-daily week                                # dates accept today/yesterday/week/month
+gc connect wellness-daily-heart-rate --param date=2026-11-16
+gc connect userprofile-biometric-current                 # {displayName} is filled in automatically
+```
+
 ### Hydration
 
 ```bash
