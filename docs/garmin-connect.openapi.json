@@ -157,6 +157,9 @@
       "name": "segment-service"
     },
     {
+      "name": "services"
+    },
+    {
       "name": "site-status"
     },
     {
@@ -1066,6 +1069,7 @@
           "/app/activity/{activityId}",
           "/app/floors",
           "/app/heart-rate/{date}",
+          "/app/progress-summary",
           "/app/report/-1/all/current",
           "/app/segments"
         ],
@@ -2260,7 +2264,80 @@
                     },
                     "splitSummaries": {
                       "type": "array",
-                      "items": {}
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "averageElevationGain": {
+                            "type": "number"
+                          },
+                          "averageHR": {
+                            "type": "number"
+                          },
+                          "averageMovingSpeed": {
+                            "type": "number"
+                          },
+                          "averageSpeed": {
+                            "type": "number"
+                          },
+                          "averageTemperature": {
+                            "type": "number"
+                          },
+                          "avgVerticalSpeed": {
+                            "type": "number"
+                          },
+                          "bmrCalories": {
+                            "type": "number"
+                          },
+                          "calories": {
+                            "type": "number"
+                          },
+                          "distance": {
+                            "type": "number"
+                          },
+                          "duration": {
+                            "type": "number"
+                          },
+                          "elevationGain": {
+                            "type": "number"
+                          },
+                          "elevationLoss": {
+                            "type": "number"
+                          },
+                          "maxDistance": {
+                            "type": "number"
+                          },
+                          "maxDistanceWithPrecision": {
+                            "type": "number"
+                          },
+                          "maxElevationGain": {
+                            "type": "number"
+                          },
+                          "maxHR": {
+                            "type": "number"
+                          },
+                          "maxSpeed": {
+                            "type": "number"
+                          },
+                          "maxTemperature": {
+                            "type": "number"
+                          },
+                          "minTemperature": {
+                            "type": "number"
+                          },
+                          "movingDuration": {
+                            "type": "number"
+                          },
+                          "noOfSplits": {
+                            "type": "number"
+                          },
+                          "splitType": {
+                            "type": "string"
+                          },
+                          "totalExerciseReps": {
+                            "type": "number"
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -2349,6 +2426,9 @@
                             "type": "number"
                           },
                           "averageTemperature": {
+                            "type": "number"
+                          },
+                          "bmrCalories": {
                             "type": "number"
                           },
                           "calories": {
@@ -3684,6 +3764,7 @@
           "/app/report",
           "/app/report/-1/all/current",
           "/app/report/-29/running/current",
+          "/app/report/{n}/all/last_four_weeks",
           "/app/report/{n}/all/last_seven_days",
           "/app/report/{n}/all/last_six_months",
           "/app/report/{n}/all/last_year",
@@ -3700,6 +3781,24 @@
         ],
         "summary": "GET /gc-api/activitylist-service/activities/search/activities",
         "parameters": [
+          {
+            "name": "activityType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Observed in the web app; the value domain is not known."
+          },
+          {
+            "name": "excludeChildren",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Observed in the web app; the value domain is not known."
+          },
           {
             "name": "limit",
             "in": "query",
@@ -3782,6 +3881,9 @@
                       "autoCalcCalories": {
                         "type": "boolean"
                       },
+                      "averageBikingCadenceInRevPerMinute": {
+                        "type": "number"
+                      },
                       "averageHR": {
                         "type": "number"
                       },
@@ -3789,6 +3891,12 @@
                         "type": "number"
                       },
                       "averageSpeed": {
+                        "type": "number"
+                      },
+                      "averageSwimCadenceInStrokesPerMinute": {
+                        "type": "number"
+                      },
+                      "averageSwolf": {
                         "type": "number"
                       },
                       "avgElevation": {
@@ -3800,6 +3908,9 @@
                       "avgGroundContactTime": {
                         "type": "number"
                       },
+                      "avgPower": {
+                        "type": "number"
+                      },
                       "avgRespirationRate": {
                         "type": "number"
                       },
@@ -3807,6 +3918,9 @@
                         "type": "number"
                       },
                       "avgStrideLength": {
+                        "type": "number"
+                      },
+                      "avgStrokeDistance": {
                         "type": "number"
                       },
                       "avgVerticalOscillation": {
@@ -3822,6 +3936,9 @@
                         "type": "number"
                       },
                       "calories": {
+                        "type": "number"
+                      },
+                      "courseId": {
                         "type": "number"
                       },
                       "decoDive": {
@@ -3925,6 +4042,9 @@
                       "hrTimeInZone_5": {
                         "type": "number"
                       },
+                      "intensityFactor": {
+                        "type": "number"
+                      },
                       "isAtpActivity": {
                         "type": "boolean"
                       },
@@ -3964,13 +4084,25 @@
                       "manufacturer": {
                         "type": "string"
                       },
+                      "max20MinPower": {
+                        "type": "number"
+                      },
+                      "maxBikingCadenceInRevPerMinute": {
+                        "type": "number"
+                      },
                       "maxDoubleCadence": {
                         "type": "number"
                       },
                       "maxElevation": {
                         "type": "number"
                       },
+                      "maxFtp": {
+                        "type": "number"
+                      },
                       "maxHR": {
+                        "type": "number"
+                      },
+                      "maxPower": {
                         "type": "number"
                       },
                       "maxRespirationRate": {
@@ -3983,6 +4115,9 @@
                         "type": "number"
                       },
                       "maxStress": {
+                        "type": "number"
+                      },
+                      "maxSwimCadenceInStrokesPerMinute": {
                         "type": "number"
                       },
                       "maxTemperature": {
@@ -4007,6 +4142,9 @@
                         "type": "number"
                       },
                       "movingDuration": {
+                        "type": "number"
+                      },
+                      "normPower": {
                         "type": "number"
                       },
                       "ownerDisplayName": {
@@ -4097,6 +4235,18 @@
                             "noOfSplits": {
                               "type": "number"
                             },
+                            "numClimbSends": {
+                              "type": "number"
+                            },
+                            "numClimbsAttempted": {
+                              "type": "number"
+                            },
+                            "numClimbsCompleted": {
+                              "type": "number"
+                            },
+                            "numFalls": {
+                              "type": "number"
+                            },
                             "splitType": {
                               "type": "string"
                             },
@@ -4133,20 +4283,36 @@
                       "steps": {
                         "type": "number"
                       },
+                      "strokes": {
+                        "type": "number"
+                      },
                       "summarizedDiveInfo": {
                         "type": "object",
                         "properties": {
                           "summarizedDiveGases": {
                             "type": "array",
                             "items": {}
+                          },
+                          "totalSurfaceTime": {
+                            "type": "number"
                           }
                         }
+                      },
+                      "summarizedExerciseSets": {
+                        "type": "array",
+                        "items": {}
                       },
                       "timeZoneId": {
                         "type": "number"
                       },
+                      "totalReps": {
+                        "type": "number"
+                      },
                       "trainingEffectLabel": {
                         "type": "string"
+                      },
+                      "trainingStressScore": {
+                        "type": "number"
                       },
                       "userPro": {
                         "type": "boolean"
@@ -5296,6 +5462,7 @@
           }
         },
         "x-seen-on": [
+          "/app/activity/{activityId}",
           "/app/badge-challenge/{guid}",
           "/app/challenge",
           "/app/profile/{displayName}"
@@ -5936,7 +6103,114 @@
             "description": "Observed response shape.",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "approximateValue": {
+                        "nullable": true
+                      },
+                      "autoChallengeLink": {
+                        "type": "boolean"
+                      },
+                      "badgeChallengeName": {
+                        "type": "string"
+                      },
+                      "badgeChallengeStatusId": {
+                        "type": "number"
+                      },
+                      "badgeEarnedDate": {
+                        "nullable": true
+                      },
+                      "badgeId": {
+                        "type": "number"
+                      },
+                      "badgeKey": {
+                        "type": "string"
+                      },
+                      "badgePoints": {
+                        "type": "number"
+                      },
+                      "badgeProgressValue": {
+                        "type": "number"
+                      },
+                      "badgePromotionCode": {
+                        "nullable": true
+                      },
+                      "badgePromotionCodeTypePk": {
+                        "nullable": true
+                      },
+                      "badgeTargetValue": {
+                        "type": "number"
+                      },
+                      "badgeTypeIds": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "badgeUnitId": {
+                        "type": "number"
+                      },
+                      "badgeUuid": {
+                        "type": "string"
+                      },
+                      "challengeCategoryId": {
+                        "type": "number"
+                      },
+                      "challengeCategoryImageId": {
+                        "type": "number"
+                      },
+                      "challengeGroupPk": {
+                        "nullable": true
+                      },
+                      "codeExpirationDate": {
+                        "nullable": true
+                      },
+                      "createDate": {
+                        "type": "string"
+                      },
+                      "endDate": {
+                        "type": "string"
+                      },
+                      "joinDateLocal": {
+                        "nullable": true
+                      },
+                      "joinable": {
+                        "type": "boolean"
+                      },
+                      "limitedCapacity": {
+                        "type": "boolean"
+                      },
+                      "partnerName": {
+                        "nullable": true
+                      },
+                      "partnerRewardUrl": {
+                        "nullable": true
+                      },
+                      "premium": {
+                        "type": "boolean"
+                      },
+                      "redemptionType": {
+                        "nullable": true
+                      },
+                      "startDate": {
+                        "type": "string"
+                      },
+                      "updateDate": {
+                        "type": "string"
+                      },
+                      "urlEmbeddedSupported": {
+                        "type": "boolean"
+                      },
+                      "userJoined": {
+                        "type": "boolean"
+                      },
+                      "uuid": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -6456,6 +6730,7 @@
           }
         },
         "x-seen-on": [
+          "/app/report/{n}/all/current",
           "/app/report/{n}/all/last_four_weeks",
           "/app/workout/create/running"
         ],
@@ -6572,6 +6847,7 @@
                         "type": "number"
                       },
                       "restingHeartRateUsed": {
+                        "type": "number",
                         "nullable": true
                       },
                       "restingHrAutoUpdateUsed": {
@@ -7234,6 +7510,7 @@
           }
         },
         "x-seen-on": [
+          "/app/blood-pressure",
           "/app/blood-pressure/{date}/{n}"
         ],
         "x-gc-api-path": "/bloodpressure-service/bloodpressure"
@@ -7527,9 +7804,22 @@
             "description": "Observed response shape.",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
               }
             }
+          },
+          "404": {
+            "description": "Observed at least once (for example, no data for that date)."
           }
         },
         "x-seen-on": [
@@ -8186,7 +8476,8 @@
                         "type": "number"
                       },
                       "elapsedSeconds": {
-                        "type": "number"
+                        "type": "number",
+                        "nullable": true
                       },
                       "elevationGainInMeters": {
                         "type": "number"
@@ -8274,7 +8565,8 @@
           }
         },
         "x-seen-on": [
-          "/app/activity/{activityId}"
+          "/app/activity/{activityId}",
+          "/app/epic/create"
         ],
         "x-gc-api-path": "/course-service/course/owner/{displayName}"
       }
@@ -10072,6 +10364,7 @@
         },
         "x-seen-on": [
           "/app/activity/{activityId}",
+          "/app/blood-pressure",
           "/app/courses",
           "/app/home",
           "/app/nutrition/{date}",
@@ -11109,6 +11402,7 @@
           "/app/hydration/{date}/{n}",
           "/app/report",
           "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks",
           "/app/report/-1/running/last_four_weeks",
           "/app/report/-29/running/current",
           "/app/settings",
@@ -13140,16 +13434,19 @@
                                 "type": "object",
                                 "properties": {
                                   "avg": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "count": {
                                     "type": "number"
                                   },
                                   "max": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "min": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "sum": {
                                     "type": "number"
@@ -13243,16 +13540,19 @@
                                 "type": "object",
                                 "properties": {
                                   "avg": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "count": {
                                     "type": "number"
                                   },
                                   "max": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "min": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "sum": {
                                     "type": "number"
@@ -13532,16 +13832,19 @@
                                 "type": "object",
                                 "properties": {
                                   "avg": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "count": {
                                     "type": "number"
                                   },
                                   "max": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "min": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "sum": {
                                     "type": "number"
@@ -13592,16 +13895,19 @@
                                 "type": "object",
                                 "properties": {
                                   "avg": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "count": {
                                     "type": "number"
                                   },
                                   "max": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "min": {
-                                    "type": "number"
+                                    "type": "number",
+                                    "nullable": true
                                   },
                                   "sum": {
                                     "type": "number"
@@ -15060,6 +15366,68 @@
         "x-category": "ui-noise"
       }
     },
+    "/gc-api/gdprconsent-service/feature/LIVETRACK": {
+      "get": {
+        "operationId": "getGdprconsentServiceFeatureLIVETRACK",
+        "tags": [
+          "gdprconsent-service"
+        ],
+        "summary": "GET /gc-api/gdprconsent-service/feature/LIVETRACK",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "consentEnforcementState": {
+                      "type": "string"
+                    },
+                    "consentTypeId": {
+                      "type": "string"
+                    },
+                    "createDate": {
+                      "type": "string"
+                    },
+                    "deleteStatus": {
+                      "type": "string"
+                    },
+                    "featureType": {
+                      "type": "string"
+                    },
+                    "garminGuid": {
+                      "type": "string"
+                    },
+                    "sourceType": {
+                      "type": "string"
+                    },
+                    "updateDate": {
+                      "type": "string"
+                    },
+                    "userFeaturePk": {
+                      "type": "number"
+                    },
+                    "userOption": {
+                      "type": "string"
+                    },
+                    "userProfilePk": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/epic/create"
+        ],
+        "x-gc-api-path": "/gdprconsent-service/feature/LIVETRACK",
+        "x-category": "ui-noise"
+      }
+    },
     "/gc-api/gdprconsent-service/feature/POPULARITY_ROUTING": {
       "get": {
         "operationId": "getGdprconsentServiceFeaturePOPULARITYROUTING",
@@ -15248,6 +15616,7 @@
         },
         "x-seen-on": [
           "/app/activities",
+          "/app/blood-pressure",
           "/app/blood-pressure/{date}/{n}",
           "/app/friends",
           "/app/home",
@@ -15568,6 +15937,10 @@
                   "type": "object",
                   "properties": {
                     "activeGearTypes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "retiredGearTypes": {
                       "type": "array",
                       "items": {}
                     }
@@ -17586,6 +17959,7 @@
           "/app/report",
           "/app/report/-1/all/current",
           "/app/report/-29/running/current",
+          "/app/report/{n}/all/last_four_weeks",
           "/app/report/{n}/running/last_four_weeks"
         ],
         "x-gc-api-path": "/metrics-service/metrics/maxmet/latest/{date}"
@@ -17638,10 +18012,12 @@
                             "type": "string"
                           },
                           "fitnessAge": {
-                            "type": "number"
+                            "type": "number",
+                            "nullable": true
                           },
                           "fitnessAgeDescription": {
-                            "type": "number"
+                            "type": "number",
+                            "nullable": true
                           },
                           "maxMetCategory": {
                             "type": "number"
@@ -17661,6 +18037,59 @@
                         }
                       },
                       "heatAltitudeAcclimation": {
+                        "type": "object",
+                        "properties": {
+                          "acclimationPercentage": {
+                            "type": "number"
+                          },
+                          "altitudeAcclimation": {
+                            "type": "number"
+                          },
+                          "altitudeAcclimationDate": {
+                            "type": "string"
+                          },
+                          "altitudeAcclimationLocalTimestamp": {
+                            "type": "string"
+                          },
+                          "altitudeTrend": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "calendarDate": {
+                            "type": "string"
+                          },
+                          "currentAltitude": {
+                            "type": "number"
+                          },
+                          "heatAcclimationDate": {
+                            "type": "string"
+                          },
+                          "heatAcclimationPercentage": {
+                            "type": "number"
+                          },
+                          "heatTrend": {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          "previousAcclimationPercentage": {
+                            "type": "number"
+                          },
+                          "previousAltitude": {
+                            "type": "number"
+                          },
+                          "previousAltitudeAcclimation": {
+                            "type": "number"
+                          },
+                          "previousAltitudeAcclimationDate": {
+                            "type": "string"
+                          },
+                          "previousHeatAcclimationDate": {
+                            "type": "string"
+                          },
+                          "previousHeatAcclimationPercentage": {
+                            "type": "number"
+                          }
+                        },
                         "nullable": true
                       },
                       "userId": {
@@ -17822,6 +18251,7 @@
           }
         },
         "x-seen-on": [
+          "/app/report/{n}/all/last_four_weeks",
           "/app/report/{n}/running/last_four_weeks"
         ],
         "x-gc-api-path": "/metrics-service/metrics/maxmet/weekly/{startDate}/{endDate}"
@@ -17995,6 +18425,7 @@
         },
         "x-seen-on": [
           "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks",
           "/app/report/-1/running/last_four_weeks"
         ],
         "x-gc-api-path": "/metrics-service/metrics/trainingloadbalance/latest/{date}"
@@ -18152,6 +18583,7 @@
         },
         "x-seen-on": [
           "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks",
           "/app/report/-1/running/last_four_weeks"
         ],
         "x-gc-api-path": "/metrics-service/metrics/trainingstatus/daily/{date}"
@@ -22521,76 +22953,6 @@
         "x-category": "ui-noise"
       }
     },
-    "/gc-api/userpreference-service/Map.Setting.Courses": {
-      "get": {
-        "operationId": "getUserpreferenceServiceMapSettingCourses",
-        "tags": [
-          "userpreference-service"
-        ],
-        "summary": "GET /gc-api/userpreference-service/Map.Setting.Courses",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Observed response shape.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "type": "string"
-                    },
-                    "value": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-seen-on": [
-          "/app/course/{id}",
-          "/app/courses",
-          "/app/popularity-heatmap"
-        ],
-        "x-gc-api-path": "/userpreference-service/Map.Setting.Courses",
-        "x-category": "ui-noise"
-      },
-      "put": {
-        "operationId": "putUserpreferenceServiceMapSettingCourses",
-        "tags": [
-          "userpreference-service"
-        ],
-        "summary": "PUT /gc-api/userpreference-service/Map.Setting.Courses",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Observed response shape.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "key": {
-                      "type": "string"
-                    },
-                    "value": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-seen-on": [
-          "/app/courses"
-        ],
-        "x-gc-api-path": "/userpreference-service/Map.Setting.Courses",
-        "x-category": "ui-noise"
-      }
-    },
     "/gc-api/userpreference-service/Map.Setting.Trails": {
       "get": {
         "operationId": "getUserpreferenceServiceMapSettingTrails",
@@ -22656,7 +23018,8 @@
           }
         },
         "x-seen-on": [
-          "/app/report/-1/all/current"
+          "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks"
         ],
         "x-gc-api-path": "/userpreference-service/ProvisionalStatusBannerDismissed",
         "x-category": "ui-noise"
@@ -22692,7 +23055,8 @@
           }
         },
         "x-seen-on": [
-          "/app/report/-1/all/current"
+          "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks"
         ],
         "x-gc-api-path": "/userpreference-service/TrainingStatus.last.device",
         "x-category": "ui-noise"
@@ -24129,6 +24493,7 @@
           }
         },
         "x-seen-on": [
+          "/app/activity/{activityId}",
           "/app/profile/{displayName}"
         ],
         "x-gc-api-path": "/userpreference-service/user_has_seen_newsfeed_tag_tooltip",
@@ -24202,6 +24567,7 @@
           "/app/home",
           "/app/nutrition/{date}",
           "/app/profile/{displayName}",
+          "/app/report/{n}/all/current",
           "/app/weight"
         ],
         "x-gc-api-path": "/userpreference-service/weight_display_unit",
@@ -24247,7 +24613,10 @@
           }
         },
         "x-seen-on": [
-          "/app/personal-records"
+          "/app/course/{id}",
+          "/app/courses",
+          "/app/personal-records",
+          "/app/popularity-heatmap"
         ],
         "x-gc-api-path": "/userpreference-service/{displayName}",
         "x-category": "ui-noise"
@@ -24290,6 +24659,7 @@
           }
         },
         "x-seen-on": [
+          "/app/courses",
           "/app/personal-records"
         ],
         "x-gc-api-path": "/userpreference-service/{displayName}",
@@ -25314,6 +25684,7 @@
           "/app/pulse-ox/{date}",
           "/app/report",
           "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks",
           "/app/report/-29/running/current",
           "/app/sleep/{date}",
           "/app/sleep/{date}/{n}",
@@ -25503,6 +25874,7 @@
           "/app/report",
           "/app/report/-1/all/current",
           "/app/report/-29/running/current",
+          "/app/report/{n}/all/current",
           "/app/report/{n}/all/last_four_weeks",
           "/app/segment/{guid}",
           "/app/settings",
@@ -26162,8 +26534,10 @@
           }
         },
         "x-seen-on": [
+          "/app/activities",
           "/app/activity/{activityId}",
           "/app/blood-pressure",
+          "/app/challenge",
           "/app/fitness-age",
           "/app/friends/followers",
           "/app/gear/detail/{guid}",
@@ -26174,6 +26548,7 @@
           "/app/personal-records",
           "/app/profile/{displayName}",
           "/app/pulse-ox-acclimation/{date}",
+          "/app/report/{n}/all/current",
           "/app/report/{n}/all/last_four_weeks",
           "/app/segment/{guid}",
           "/app/settings",
@@ -26601,6 +26976,7 @@
         },
         "x-seen-on": [
           "/app/report",
+          "/app/report/{n}/all/current",
           "/app/report/{n}/all/last_four_weeks",
           "/app/report/{n}/all/last_seven_days",
           "/app/report/{n}/all/last_six_months",
@@ -27614,6 +27990,139 @@
         "x-gc-api-path": "/usersummary-service/stats/daily/{startDate}/{endDate}"
       }
     },
+    "/gc-api/usersummary-service/stats/floors/weekly/{date}/{weeks}": {
+      "get": {
+        "operationId": "getUsersummaryServiceStatsFloorsWeeklyByDateByWeeks",
+        "tags": [
+          "usersummary-service"
+        ],
+        "summary": "GET /gc-api/usersummary-service/stats/floors/weekly/{date}/{weeks}",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "weeks",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "calendarDate": {
+                        "type": "string"
+                      },
+                      "values": {
+                        "type": "object",
+                        "properties": {
+                          "wellnessDataDaysCount": {
+                            "type": "number"
+                          },
+                          "wellnessFloorsAscended": {
+                            "type": "number"
+                          },
+                          "wellnessFloorsDescended": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/floors/{date}/{n}"
+        ],
+        "x-gc-api-path": "/usersummary-service/stats/floors/weekly/{date}/{weeks}"
+      }
+    },
+    "/gc-api/usersummary-service/stats/heartRate/weekly/{date}/{weeks}": {
+      "get": {
+        "operationId": "getUsersummaryServiceStatsHeartRateWeeklyByDateByWeeks",
+        "tags": [
+          "usersummary-service"
+        ],
+        "summary": "GET /gc-api/usersummary-service/stats/heartRate/weekly/{date}/{weeks}",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "weeks",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "calendarDate": {
+                        "type": "string"
+                      },
+                      "values": {
+                        "type": "object",
+                        "properties": {
+                          "avgRestingHR": {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          "wellnessMaxAvgHR": {
+                            "type": "number"
+                          },
+                          "wellnessMinAvgHR": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/heart-rate/{date}/{n}"
+        ],
+        "x-gc-api-path": "/usersummary-service/stats/heartRate/weekly/{date}/{weeks}"
+      }
+    },
     "/gc-api/usersummary-service/stats/im/daily/{startDate}/{endDate}": {
       "get": {
         "operationId": "getUsersummaryServiceStatsImDailyByStartDateByEndDate",
@@ -27736,6 +28245,231 @@
           "/app/intensity-minutes/{date}/{n}"
         ],
         "x-gc-api-path": "/usersummary-service/stats/im/weekly/{startDate}/{endDate}"
+      }
+    },
+    "/gc-api/usersummary-service/stats/pushes/monthly/{date}/{n}": {
+      "get": {
+        "operationId": "getUsersummaryServiceStatsPushesMonthlyByDateByN",
+        "tags": [
+          "usersummary-service"
+        ],
+        "summary": "GET /gc-api/usersummary-service/stats/pushes/monthly/{date}/{n}",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "n",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/steps/{date}/{n}"
+        ],
+        "x-gc-api-path": "/usersummary-service/stats/pushes/monthly/{date}/{n}"
+      }
+    },
+    "/gc-api/usersummary-service/stats/pushes/weekly/{date}/{weeks}": {
+      "get": {
+        "operationId": "getUsersummaryServiceStatsPushesWeeklyByDateByWeeks",
+        "tags": [
+          "usersummary-service"
+        ],
+        "summary": "GET /gc-api/usersummary-service/stats/pushes/weekly/{date}/{weeks}",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "weeks",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/steps/{date}/{n}"
+        ],
+        "x-gc-api-path": "/usersummary-service/stats/pushes/weekly/{date}/{weeks}"
+      }
+    },
+    "/gc-api/usersummary-service/stats/steps/monthly/{date}/{n}": {
+      "get": {
+        "operationId": "getUsersummaryServiceStatsStepsMonthlyByDateByN",
+        "tags": [
+          "usersummary-service"
+        ],
+        "summary": "GET /gc-api/usersummary-service/stats/steps/monthly/{date}/{n}",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "n",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "calendarDate": {
+                        "type": "string"
+                      },
+                      "values": {
+                        "type": "object",
+                        "properties": {
+                          "TotalStepsGoal": {
+                            "type": "number"
+                          },
+                          "totalDistance": {
+                            "type": "number"
+                          },
+                          "totalSteps": {
+                            "type": "number"
+                          },
+                          "wellnessDataDaysCount": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/steps/{date}/{n}"
+        ],
+        "x-gc-api-path": "/usersummary-service/stats/steps/monthly/{date}/{n}"
+      }
+    },
+    "/gc-api/usersummary-service/stats/steps/weekly/{date}/{weeks}": {
+      "get": {
+        "operationId": "getUsersummaryServiceStatsStepsWeeklyByDateByWeeks",
+        "tags": [
+          "usersummary-service"
+        ],
+        "summary": "GET /gc-api/usersummary-service/stats/steps/weekly/{date}/{weeks}",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "weeks",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "calendarDate": {
+                        "type": "string"
+                      },
+                      "values": {
+                        "type": "object",
+                        "properties": {
+                          "averageDistance": {
+                            "type": "number"
+                          },
+                          "averageSteps": {
+                            "type": "number"
+                          },
+                          "totalDistance": {
+                            "type": "number"
+                          },
+                          "totalSteps": {
+                            "type": "number"
+                          },
+                          "wellnessDataDaysCount": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/steps/{date}/{n}"
+        ],
+        "x-gc-api-path": "/usersummary-service/stats/steps/weekly/{date}/{weeks}"
       }
     },
     "/gc-api/usersummary-service/stats/wellness/leaderboard/FOLLOWING": {
@@ -28255,6 +28989,7 @@
           }
         },
         "x-seen-on": [
+          "/app/heart-rate/{date}",
           "/app/heart-rate/{date}/{n}",
           "/app/home",
           "/app/hrv-status",
@@ -30129,16 +30864,20 @@
           "/app/activity/{activityId}",
           "/app/badge-challenge/{guid}",
           "/app/calories/{date}/{n}",
+          "/app/challenge",
           "/app/course/{id}",
           "/app/fitness-age",
           "/app/goals/active",
           "/app/heart-rate/{date}",
+          "/app/heart-rate/{date}/{n}",
           "/app/insights",
+          "/app/nutrition/{date}",
           "/app/personal-records",
           "/app/progress-summary",
           "/app/report/-1/all/current",
           "/app/report/-1/all/last_four_weeks",
           "/app/report/{n}/all/last_seven_days",
+          "/app/report/{n}/all/last_year",
           "/app/report/{n}/breathwork/last_year",
           "/app/settings/subscription",
           "/app/sleep/{date}",
@@ -32179,6 +32918,7 @@
         },
         "x-seen-on": [
           "/app/course/{id}",
+          "/app/fitness-age",
           "/app/friends/followers",
           "/app/hrv-status",
           "/app/personal-records",
@@ -36433,6 +37173,7 @@
           "/app/course/{id}",
           "/app/courses",
           "/app/epic",
+          "/app/epic/create",
           "/app/fitness-age",
           "/app/friends/followers",
           "/app/home",
@@ -36445,8 +37186,11 @@
           "/app/profile/{displayName}",
           "/app/report",
           "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks",
           "/app/report/-1/running/last_four_weeks",
           "/app/report/-29/running/current",
+          "/app/report/{n}/all/current",
+          "/app/report/{n}/all/last_year",
           "/app/settings",
           "/app/settings/displayPreferences",
           "/app/settings/publicProfile",
@@ -36513,6 +37257,7 @@
           "/app/course/{id}",
           "/app/courses",
           "/app/epic",
+          "/app/epic/create",
           "/app/fitness-age",
           "/app/floors",
           "/app/friends",
@@ -38157,6 +38902,32 @@
         ]
       }
     },
+    "/services/auth/token/di-oauth/refresh": {
+      "post": {
+        "operationId": "postServicesAuthTokenDiOauthRefresh",
+        "tags": [
+          "services"
+        ],
+        "summary": "POST /services/auth/token/di-oauth/refresh",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "201": {
+            "description": "Observed at least once (for example, no data for that date)."
+          }
+        },
+        "x-seen-on": [
+          "/app/nutrition/{date}"
+        ]
+      }
+    },
     "/site-status/garmin-connect-status.json": {
       "get": {
         "operationId": "getSiteStatusGarminConnectStatusJson",
@@ -38198,6 +38969,7 @@
           "/app/course/{id}",
           "/app/courses",
           "/app/epic",
+          "/app/epic/create",
           "/app/fitness-age",
           "/app/floors",
           "/app/friends/followers",
@@ -38588,6 +39360,166 @@
                           }
                         }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-seen-on": [
+          "/app/activity/{activityId}"
+        ],
+        "x-category": "ui-noise"
+      }
+    },
+    "/web-api/web-data/activity-configurations/backcountry_skiing.json": {
+      "get": {
+        "operationId": "getWebDataActivityConfigurationsBackcountrySkiingJson",
+        "tags": [
+          "web-data"
+        ],
+        "summary": "GET /web-api/web-data/activity-configurations/backcountry_skiing.json",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Observed response shape.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "header": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "props": {
+                            "type": "object",
+                            "properties": {
+                              "canEdit": {
+                                "type": "boolean"
+                              },
+                              "canExportCSV": {
+                                "type": "boolean"
+                              },
+                              "canExportGPX": {
+                                "type": "boolean"
+                              },
+                              "canExportTCX": {
+                                "type": "boolean"
+                              },
+                              "canSaveCourse": {
+                                "type": "boolean"
+                              },
+                              "canSetPR": {
+                                "type": "boolean"
+                              },
+                              "canShowElevationSourceToggle": {
+                                "type": "boolean"
+                              }
+                            }
+                          },
+                          "type": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "leftColumn": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "props": {
+                            "type": "object",
+                            "properties": {
+                              "chartConfigs": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "enabledWhen": {
+                                      "type": "string"
+                                    },
+                                    "name": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "defaultOverlay": {
+                                "type": "string"
+                              },
+                              "metricOverlays": {
+                                "type": "array",
+                                "items": {}
+                              },
+                              "splitMarkerTooltipType": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "props": {
+                                  "type": "object",
+                                  "properties": {
+                                    "columnConfig": {
+                                      "type": "array",
+                                      "items": {}
+                                    },
+                                    "powerZonesType": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "type": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "rightColumn": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "enabledWhen": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "view": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "supportedXAxes": {
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
@@ -45182,7 +46114,8 @@
           }
         },
         "x-seen-on": [
-          "/app/report/-1/all/current"
+          "/app/report/-1/all/current",
+          "/app/report/-1/all/last_four_weeks"
         ],
         "x-category": "ui-noise"
       }
@@ -45326,6 +46259,7 @@
           }
         },
         "x-seen-on": [
+          "/app/report/{n}/all/current",
           "/app/report/{n}/all/last_four_weeks"
         ],
         "x-category": "ui-noise"
@@ -45379,6 +46313,7 @@
           "/app/course/{id}",
           "/app/courses",
           "/app/epic",
+          "/app/epic/create",
           "/app/fitness-age",
           "/app/floors",
           "/app/friends",

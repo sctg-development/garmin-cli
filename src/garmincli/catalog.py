@@ -12,7 +12,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-connect-iqdisplay-info",
@@ -21,7 +22,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-details",
@@ -35,14 +37,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "maxHeatMapSize",
       "maxPolylineSize"
     ],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-event-types",
     "path": "/activity-service/activity/eventTypes",
     "params": [],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-hr-time-in-zones",
@@ -51,7 +55,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-mapdetails",
@@ -62,7 +67,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "maxPolylineSize"
     ],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-running-form-details",
@@ -71,7 +77,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-split_summaries",
@@ -80,7 +87,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-splits",
@@ -89,7 +97,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-typedsplits",
@@ -98,14 +107,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-types",
     "path": "/activity-service/activity/activityTypes",
     "params": [],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-weather",
@@ -116,7 +127,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "enabled"
     ],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activity-workouts",
@@ -125,7 +137,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "activityId"
     ],
     "query": [],
-    "service": "activity-service"
+    "service": "activity-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities",
@@ -137,7 +150,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
+  },
+  {
+    "name": "activitylist-activities-count",
+    "path": "/activitylist-service/activities/count",
+    "params": [],
+    "query": [],
+    "service": "activitylist-service",
+    "source": "library"
   },
   {
     "name": "activitylist-activities-fastest-splits",
@@ -149,7 +171,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "numberOfBests",
       "startDate"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-favorite",
@@ -160,14 +183,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "limit"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-first-last",
     "path": "/activitylist-service/activities/first-last",
     "params": [],
     "query": [],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-fordailysummary",
@@ -178,7 +203,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "calendarDate"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-gear",
@@ -190,7 +216,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-list",
@@ -205,17 +232,21 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "start",
       "startTimestampLocal"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-search-activities",
     "path": "/activitylist-service/activities/search/activities",
     "params": [],
     "query": [
+      "activityType",
+      "excludeChildren",
       "limit",
       "start"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "activitylist-activities-v2-newsfeed-status",
@@ -224,7 +255,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "lastViewedTimeGMT"
     ],
-    "service": "activitylist-service"
+    "service": "activitylist-service",
+    "source": "web"
   },
   {
     "name": "adhocchallenge-ad-hoc-challenge-historical",
@@ -234,7 +266,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "adhocchallenge-service"
+    "service": "adhocchallenge-service",
+    "source": "web"
   },
   {
     "name": "adhocchallenge-ad-hoc-challenge-non-completed",
@@ -244,7 +277,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "adhocchallenge-service"
+    "service": "adhocchallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-badge-challenge",
@@ -253,7 +287,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "guid"
     ],
     "query": [],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-badge-challenge-available",
@@ -264,7 +299,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-badge-challenge-completed",
@@ -276,7 +312,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-badge-challenge-non-completed",
@@ -288,7 +325,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-virtual-challenge-available",
@@ -297,7 +335,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "limit"
     ],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-virtual-challenge-completed",
@@ -308,7 +347,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "badgechallenge-virtual-challenge-in-progress",
@@ -319,14 +359,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "badgechallenge-service"
+    "service": "badgechallenge-service",
+    "source": "web"
   },
   {
     "name": "biometric-heart-rate-zones",
     "path": "/biometric-service/heartRateZones",
     "params": [],
     "query": [],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-heart-rate-zones-v2",
@@ -335,14 +377,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "generateDefaults"
     ],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-latest-lactate-threshold",
     "path": "/biometric-service/biometric/latestLactateThreshold",
     "params": [],
     "query": [],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-power-to-weight-latest",
@@ -351,21 +395,24 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-power-zones-sport-cycling",
     "path": "/biometric-service/powerZones/sport/CYCLING",
     "params": [],
     "query": [],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-power-zones-sports-all",
     "path": "/biometric-service/powerZones/sports/all",
     "params": [],
     "query": [],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-stats",
@@ -377,7 +424,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "startDate",
       "userFirstDay"
     ],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-stats-functional-threshold-power-range",
@@ -389,7 +437,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "aggregation"
     ],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "biometric-stats-power-to-weight-range",
@@ -401,7 +450,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "aggregation"
     ],
-    "service": "biometric-service"
+    "service": "biometric-service",
+    "source": "web"
   },
   {
     "name": "bloodpressure-daily-last",
@@ -411,7 +461,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "bloodpressure-service"
+    "service": "bloodpressure-service",
+    "source": "web"
   },
   {
     "name": "bloodpressure-dayview",
@@ -420,7 +471,21 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "bloodpressure-service"
+    "service": "bloodpressure-service",
+    "source": "web"
+  },
+  {
+    "name": "bloodpressure-range",
+    "path": "/bloodpressure-service/bloodpressure/range/{startDate}/{endDate}",
+    "params": [
+      "startDate",
+      "endDate"
+    ],
+    "query": [
+      "includeAll"
+    ],
+    "service": "bloodpressure-service",
+    "source": "library"
   },
   {
     "name": "bloodpressure-weekly-range",
@@ -430,7 +495,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "bloodpressure-service"
+    "service": "bloodpressure-service",
+    "source": "web"
   },
   {
     "name": "calendar-events",
@@ -442,7 +508,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "includeOnlyWithoutCourse",
       "startDate"
     ],
-    "service": "calendar-service"
+    "service": "calendar-service",
+    "source": "web"
   },
   {
     "name": "calendar-events-upcoming",
@@ -454,21 +521,24 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "numDaysForward",
       "startDate"
     ],
-    "service": "calendar-service"
+    "service": "calendar-service",
+    "source": "web"
   },
   {
     "name": "challenge-active",
     "path": "/challenge-service/challenge/active",
     "params": [],
     "query": [],
-    "service": "challenge-service"
+    "service": "challenge-service",
+    "source": "web"
   },
   {
     "name": "challenge-previous",
     "path": "/challenge-service/challenge/previous",
     "params": [],
     "query": [],
-    "service": "challenge-service"
+    "service": "challenge-service",
+    "source": "web"
   },
   {
     "name": "consumer-capabilities-for-user",
@@ -477,7 +547,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "guid"
     ],
     "query": [],
-    "service": "consumer-service"
+    "service": "consumer-service",
+    "source": "web"
   },
   {
     "name": "course",
@@ -486,7 +557,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-curated",
@@ -495,7 +567,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-curated-matching-candidates",
@@ -504,14 +577,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-favorites",
     "path": "/course-service/course/favorites",
     "params": [],
     "query": [],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-lines",
@@ -520,7 +595,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-minimaps",
@@ -530,7 +606,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "coordinateSystem",
       "courseId"
     ],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-onroute-features",
@@ -544,14 +621,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "fetchHighTrafficSections",
       "fetchUnpavedSections"
     ],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-owner-by-0",
     "path": "/web-gateway/course/owner",
     "params": [],
     "query": [],
-    "service": "course"
+    "service": "course",
+    "source": "web"
   },
   {
     "name": "course-owner-by-1",
@@ -560,7 +639,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "course-pacebands-summaries",
@@ -569,14 +649,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "courseId"
     ],
-    "service": "course-service"
+    "service": "course-service",
+    "source": "web"
   },
   {
     "name": "device-deviceregistration-devices",
     "path": "/device-service/deviceregistration/devices",
     "params": [],
     "query": [],
-    "service": "device-service"
+    "service": "device-service",
+    "source": "web"
   },
   {
     "name": "device-deviceregistration-devices-all",
@@ -585,14 +667,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "device-service"
+    "service": "device-service",
+    "source": "web"
   },
   {
     "name": "device-deviceregistration-devices-historical",
     "path": "/device-service/deviceregistration/devices/historical",
     "params": [],
     "query": [],
-    "service": "device-service"
+    "service": "device-service",
+    "source": "web"
   },
   {
     "name": "device-deviceservice-app-info",
@@ -601,7 +685,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "device-service"
+    "service": "device-service",
+    "source": "web"
   },
   {
     "name": "device-deviceservice-device-info-all",
@@ -610,7 +695,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "device-service"
+    "service": "device-service",
+    "source": "web"
   },
   {
     "name": "device-deviceservice-userlastused",
@@ -619,28 +705,32 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "device-service"
+    "service": "device-service",
+    "source": "web"
   },
   {
     "name": "device-info-device-info-primary-training-device",
     "path": "/web-gateway/device-info/primary-training-device",
     "params": [],
     "query": [],
-    "service": "device-info"
+    "service": "device-info",
+    "source": "web"
   },
   {
     "name": "devicebackup-backup",
     "path": "/devicebackup-service/backup",
     "params": [],
     "query": [],
-    "service": "devicebackup-service"
+    "service": "devicebackup-service",
+    "source": "web"
   },
   {
     "name": "devicebackup-backup-summary",
     "path": "/devicebackup-service/backup/summary",
     "params": [],
     "query": [],
-    "service": "devicebackup-service"
+    "service": "devicebackup-service",
+    "source": "web"
   },
   {
     "name": "fitnessage",
@@ -649,7 +739,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "fitnessage-service"
+    "service": "fitnessage-service",
+    "source": "web"
   },
   {
     "name": "fitnessage-stats-daily",
@@ -659,7 +750,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "fitnessage-service"
+    "service": "fitnessage-service",
+    "source": "web"
   },
   {
     "name": "fitnessage-stats-weekly",
@@ -669,7 +761,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "weeks"
     ],
     "query": [],
-    "service": "fitnessage-service"
+    "service": "fitnessage-service",
+    "source": "web"
   },
   {
     "name": "fitnessstats-activity",
@@ -688,7 +781,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "startDate",
       "userFirstDay"
     ],
-    "service": "fitnessstats-service"
+    "service": "fitnessstats-service",
+    "source": "web"
   },
   {
     "name": "fitnessstats-activity-all",
@@ -700,7 +794,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "metric",
       "startDate"
     ],
-    "service": "fitnessstats-service"
+    "service": "fitnessstats-service",
+    "source": "web"
   },
   {
     "name": "fitnessstats-activity-animal-dog-stats-lifetime",
@@ -709,7 +804,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "metric"
     ],
-    "service": "fitnessstats-service"
+    "service": "fitnessstats-service",
+    "source": "web"
   },
   {
     "name": "fitnessstats-activity-available-metrics",
@@ -720,7 +816,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate",
       "startDate"
     ],
-    "service": "fitnessstats-service"
+    "service": "fitnessstats-service",
+    "source": "web"
   },
   {
     "name": "fitnessstats-activity-user-avg-speed",
@@ -729,7 +826,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "activityType"
     ],
-    "service": "fitnessstats-service"
+    "service": "fitnessstats-service",
+    "source": "web"
   },
   {
     "name": "gear-activity-v2",
@@ -738,7 +836,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "gear-service"
+    "service": "gear-service",
+    "source": "web"
   },
   {
     "name": "gear-collection-available",
@@ -747,7 +846,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "gear-service"
+    "service": "gear-service",
+    "source": "web"
   },
   {
     "name": "gear-v2",
@@ -756,7 +856,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "guid"
     ],
     "query": [],
-    "service": "gear-service"
+    "service": "gear-service",
+    "source": "web"
   },
   {
     "name": "gear-v2-available",
@@ -765,7 +866,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "gear-service"
+    "service": "gear-service",
+    "source": "web"
   },
   {
     "name": "gear-v2-list",
@@ -777,14 +879,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "sortOrder",
       "start"
     ],
-    "service": "gear-service"
+    "service": "gear-service",
+    "source": "web"
   },
   {
     "name": "gear-v2-user-gear-types",
     "path": "/gear-service/gear/v2/user-gear-types",
     "params": [],
     "query": [],
-    "service": "gear-service"
+    "service": "gear-service",
+    "source": "web"
   },
   {
     "name": "goal-goals",
@@ -796,7 +900,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "start",
       "status"
     ],
-    "service": "goal-service"
+    "service": "goal-service",
+    "source": "web"
   },
   {
     "name": "goal-user-effective",
@@ -805,7 +910,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "goal-service"
+    "service": "goal-service",
+    "source": "web"
   },
   {
     "name": "goal-user-effective-weightgoal",
@@ -815,7 +921,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "goal-service"
+    "service": "goal-service",
+    "source": "web"
   },
   {
     "name": "group-groups",
@@ -826,7 +933,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "includeMembership"
     ],
-    "service": "group-service"
+    "service": "group-service",
+    "source": "web"
   },
   {
     "name": "group-private-group-request-user",
@@ -835,7 +943,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "group-service"
+    "service": "group-service",
+    "source": "web"
   },
   {
     "name": "group-request-not-handled",
@@ -844,7 +953,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "group-service"
+    "service": "group-service",
+    "source": "web"
   },
   {
     "name": "groupchallenge-history-user-joined",
@@ -854,7 +964,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "groupchallenge-service"
+    "service": "groupchallenge-service",
+    "source": "web"
   },
   {
     "name": "groupchallenge-non-completed",
@@ -864,7 +975,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "groupchallenge-service"
+    "service": "groupchallenge-service",
+    "source": "web"
   },
   {
     "name": "hrv",
@@ -873,7 +985,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "hrv-service"
+    "service": "hrv-service",
+    "source": "web"
   },
   {
     "name": "hrv-daily",
@@ -883,7 +996,40 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "hrv-service"
+    "service": "hrv-service",
+    "source": "web"
+  },
+  {
+    "name": "lifestylelogging-daily-log",
+    "path": "/lifestylelogging-service/dailyLog/{date}",
+    "params": [
+      "date"
+    ],
+    "query": [],
+    "service": "lifestylelogging-service",
+    "source": "library"
+  },
+  {
+    "name": "metrics-endurancescore",
+    "path": "/metrics-service/metrics/endurancescore",
+    "params": [],
+    "query": [
+      "calendarDate"
+    ],
+    "service": "metrics-service",
+    "source": "library"
+  },
+  {
+    "name": "metrics-endurancescore-stats",
+    "path": "/metrics-service/metrics/endurancescore/stats",
+    "params": [],
+    "query": [
+      "startDate",
+      "endDate",
+      "aggregation"
+    ],
+    "service": "metrics-service",
+    "source": "library"
   },
   {
     "name": "metrics-heataltitudeacclimation-daily",
@@ -893,7 +1039,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-heataltitudeacclimation-latest",
@@ -902,7 +1049,30 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
+  },
+  {
+    "name": "metrics-hillscore",
+    "path": "/metrics-service/metrics/hillscore",
+    "params": [],
+    "query": [
+      "calendarDate"
+    ],
+    "service": "metrics-service",
+    "source": "library"
+  },
+  {
+    "name": "metrics-hillscore-stats",
+    "path": "/metrics-service/metrics/hillscore/stats",
+    "params": [],
+    "query": [
+      "startDate",
+      "endDate",
+      "aggregation"
+    ],
+    "service": "metrics-service",
+    "source": "library"
   },
   {
     "name": "metrics-internal-manualstresslevel-daily",
@@ -913,7 +1083,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-maxmet-daily",
@@ -923,7 +1094,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-maxmet-latest",
@@ -934,7 +1106,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "sport"
     ],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-maxmet-monthly",
@@ -944,7 +1117,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-maxmet-weekly",
@@ -956,7 +1130,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "sport"
     ],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-racepredictions-latest",
@@ -965,7 +1140,20 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
+  },
+  {
+    "name": "metrics-runningtolerance-stats",
+    "path": "/metrics-service/metrics/runningtolerance/stats",
+    "params": [],
+    "query": [
+      "startDate",
+      "endDate",
+      "aggregation"
+    ],
+    "service": "metrics-service",
+    "source": "library"
   },
   {
     "name": "metrics-trainingloadbalance-latest",
@@ -974,7 +1162,28 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
+  },
+  {
+    "name": "metrics-trainingreadiness",
+    "path": "/metrics-service/metrics/trainingreadiness/{date}",
+    "params": [
+      "date"
+    ],
+    "query": [],
+    "service": "metrics-service",
+    "source": "library"
+  },
+  {
+    "name": "metrics-trainingstatus-aggregated",
+    "path": "/metrics-service/metrics/trainingstatus/aggregated/{date}",
+    "params": [
+      "date"
+    ],
+    "query": [],
+    "service": "metrics-service",
+    "source": "library"
   },
   {
     "name": "metrics-trainingstatus-daily",
@@ -983,7 +1192,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "metrics-trainingstatus-weekly",
@@ -995,7 +1205,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "fromCalendarDate",
       "toCalendarDate"
     ],
-    "service": "metrics-service"
+    "service": "metrics-service",
+    "source": "web"
   },
   {
     "name": "notification-inbox",
@@ -1004,7 +1215,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "limit"
     ],
-    "service": "notification-service"
+    "service": "notification-service",
+    "source": "web"
   },
   {
     "name": "nutrition-food-logs",
@@ -1013,7 +1225,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "nutrition-service"
+    "service": "nutrition-service",
+    "source": "web"
   },
   {
     "name": "nutrition-meals",
@@ -1024,7 +1237,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "populateMealsV2"
     ],
-    "service": "nutrition-service"
+    "service": "nutrition-service",
+    "source": "web"
   },
   {
     "name": "nutrition-meals-range",
@@ -1034,14 +1248,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate",
       "startDate"
     ],
-    "service": "nutrition-service"
+    "service": "nutrition-service",
+    "source": "web"
   },
   {
     "name": "nutrition-user-nutrition-current-status",
     "path": "/nutrition-service/user/nutritionCurrentStatus",
     "params": [],
     "query": [],
-    "service": "nutrition-service"
+    "service": "nutrition-service",
+    "source": "web"
   },
   {
     "name": "periodichealth-menstrualcycle-dayview",
@@ -1052,28 +1268,32 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "todayDate"
     ],
-    "service": "periodichealth-service"
+    "service": "periodichealth-service",
+    "source": "web"
   },
   {
     "name": "periodichealth-menstrualcycle-pregnancysnapshot-all",
     "path": "/periodichealth-service/menstrualcycle/pregnancysnapshot/all",
     "params": [],
     "query": [],
-    "service": "periodichealth-service"
+    "service": "periodichealth-service",
+    "source": "web"
   },
   {
     "name": "personalapitoken-personal-api-personal-api-key",
     "path": "/personalapitoken-service/personal-api/personal-api-key",
     "params": [],
     "query": [],
-    "service": "personalapitoken-service"
+    "service": "personalapitoken-service",
+    "source": "web"
   },
   {
     "name": "personalapitoken-personal-api-personal-api-key-permissions",
     "path": "/personalapitoken-service/personal-api/personal-api-key-permissions",
     "params": [],
     "query": [],
-    "service": "personalapitoken-service"
+    "service": "personalapitoken-service",
+    "source": "web"
   },
   {
     "name": "personalrecord-personalrecordcandidate",
@@ -1082,7 +1302,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "personalrecord-service"
+    "service": "personalrecord-service",
+    "source": "web"
   },
   {
     "name": "personalrecord-personalrecordtype-prtypes",
@@ -1091,7 +1312,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "personalrecord-service"
+    "service": "personalrecord-service",
+    "source": "web"
   },
   {
     "name": "personalrecord-pr-by-activity-id",
@@ -1102,7 +1324,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "includeAllTypes"
     ],
-    "service": "personalrecord-service"
+    "service": "personalrecord-service",
+    "source": "web"
   },
   {
     "name": "personalrecord-prs",
@@ -1113,14 +1336,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "includeHistory"
     ],
-    "service": "personalrecord-service"
+    "service": "personalrecord-service",
+    "source": "web"
   },
   {
     "name": "privacysettings-privacy-settings",
     "path": "/privacysettings-service/privacy-settings",
     "params": [],
     "query": [],
-    "service": "privacysettings-service"
+    "service": "privacysettings-service",
+    "source": "web"
   },
   {
     "name": "segment",
@@ -1129,14 +1354,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "guid"
     ],
     "query": [],
-    "service": "segment-service"
+    "service": "segment-service",
+    "source": "web"
   },
   {
     "name": "segment-classifications",
     "path": "/segment-service/segment/classifications",
     "params": [],
     "query": [],
-    "service": "segment-service"
+    "service": "segment-service",
+    "source": "web"
   },
   {
     "name": "segment-leaderboard-segment-rank",
@@ -1146,7 +1373,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "segment-service"
+    "service": "segment-service",
+    "source": "web"
   },
   {
     "name": "segment-list",
@@ -1155,14 +1383,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "segment-service"
+    "service": "segment-service",
+    "source": "web"
   },
   {
     "name": "segment-surface-types",
     "path": "/segment-service/segment/surfaceTypes",
     "params": [],
     "query": [],
-    "service": "segment-service"
+    "service": "segment-service",
+    "source": "web"
   },
   {
     "name": "sleep-daily-sleep-data",
@@ -1172,7 +1402,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date",
       "nonSleepBufferMinutes"
     ],
-    "service": "sleep-service"
+    "service": "sleep-service",
+    "source": "web"
   },
   {
     "name": "sleep-naps",
@@ -1183,7 +1414,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "includeOverlaps"
     ],
-    "service": "sleep-service"
+    "service": "sleep-service",
+    "source": "web"
   },
   {
     "name": "sleep-stats-sleep-daily",
@@ -1193,7 +1425,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "sleep-service"
+    "service": "sleep-service",
+    "source": "web"
   },
   {
     "name": "socialgroupride-v2-social-group-ride-null",
@@ -1202,7 +1435,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "activityId"
     ],
-    "service": "socialgroupride-service"
+    "service": "socialgroupride-service",
+    "source": "web"
   },
   {
     "name": "userfocus-dashboard",
@@ -1211,21 +1445,24 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "nutritionMigrationAllowed"
     ],
-    "service": "userfocus-service"
+    "service": "userfocus-service",
+    "source": "web"
   },
   {
     "name": "userfocus-focus",
     "path": "/userfocus-service/focus",
     "params": [],
     "query": [],
-    "service": "userfocus-service"
+    "service": "userfocus-service",
+    "source": "web"
   },
   {
     "name": "userfocus-focus-suggested-focuses",
     "path": "/userfocus-service/focus/suggestedFocuses",
     "params": [],
     "query": [],
-    "service": "userfocus-service"
+    "service": "userfocus-service",
+    "source": "web"
   },
   {
     "name": "userprofile-biometric-current",
@@ -1234,49 +1471,56 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-capable-enable-auto-detected-activity-capable",
     "path": "/userprofile-service/userprofile/capableEnable/autoDetectedActivityCapable",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-capable-enable-pulse-ox-capable",
     "path": "/userprofile-service/userprofile/capableEnable/pulseOxCapable",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-optional-feature-dog-activities",
     "path": "/userprofile-service/userprofile/optional-feature/dog-activities",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-optional-feature-segment-leaderboard",
     "path": "/userprofile-service/userprofile/optional-feature/segment-leaderboard",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-optional-feature-strava-segments",
     "path": "/userprofile-service/userprofile/optional-feature/strava-segments",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-optional-feature-tagging",
     "path": "/userprofile-service/userprofile/optional-feature/tagging",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-personal-information",
@@ -1288,14 +1532,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "includeBiometric",
       "includeVO2Max"
     ],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-settings",
     "path": "/userprofile-service/userprofile/settings",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-social-profile",
@@ -1304,14 +1550,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-social-profile-image",
     "path": "/userprofile-service/socialProfile/image",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-social-profile-privacy",
@@ -1320,7 +1568,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-social-profile-v2-public-multiple-id",
@@ -1330,21 +1579,24 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "image-version",
       "userId"
     ],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-user-profile-base",
     "path": "/userprofile-service/userprofile/userProfileBase",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userprofile-user-settings",
     "path": "/userprofile-service/userprofile/user-settings",
     "params": [],
     "query": [],
-    "service": "userprofile-service"
+    "service": "userprofile-service",
+    "source": "web"
   },
   {
     "name": "userstats-statistics",
@@ -1353,7 +1605,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "userstats-statistics-availability",
@@ -1362,7 +1615,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "userstats-statistics-chartconfig",
@@ -1371,7 +1625,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "chartId"
     ],
     "query": [],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "userstats-statistics-monthly",
@@ -1382,7 +1637,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "ByParentType"
     ],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "userstats-statistics-previous-days",
@@ -1391,7 +1647,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "userstats-wellness-daily",
@@ -1405,7 +1662,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "metricId",
       "untilDate"
     ],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "userstats-wellness-monthly",
@@ -1419,7 +1677,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "metricId",
       "untilMonthStartDate"
     ],
-    "service": "userstats-service"
+    "service": "userstats-service",
+    "source": "web"
   },
   {
     "name": "usersummary-daily",
@@ -1430,7 +1689,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "calendarDate"
     ],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-daily-summary-views",
@@ -1442,7 +1702,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-hydration-all-data",
@@ -1451,7 +1712,18 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-hydration-daily",
+    "path": "/usersummary-service/usersummary/hydration/daily/{date}",
+    "params": [
+      "date"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "library"
   },
   {
     "name": "usersummary-stats-calories-daily",
@@ -1461,7 +1733,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-stats-calories-weekly",
@@ -1471,7 +1744,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "weeks"
     ],
     "query": [],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-stats-connect-lifetime-totals",
@@ -1480,7 +1754,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "displayName"
     ],
     "query": [],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-stats-daily",
@@ -1493,7 +1768,30 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "currentDate",
       "statsType"
     ],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-floors-weekly",
+    "path": "/usersummary-service/stats/floors/weekly/{date}/{weeks}",
+    "params": [
+      "date",
+      "weeks"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-heart-rate-weekly",
+    "path": "/usersummary-service/stats/heartRate/weekly/{date}/{weeks}",
+    "params": [
+      "date",
+      "weeks"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-stats-im-daily",
@@ -1503,7 +1801,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "usersummary-stats-im-weekly",
@@ -1513,7 +1812,74 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-pushes-monthly",
+    "path": "/usersummary-service/stats/pushes/monthly/{date}/{n}",
+    "params": [
+      "date",
+      "n"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-pushes-weekly",
+    "path": "/usersummary-service/stats/pushes/weekly/{date}/{weeks}",
+    "params": [
+      "date",
+      "weeks"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-steps-daily",
+    "path": "/usersummary-service/stats/steps/daily/{startDate}/{endDate}",
+    "params": [
+      "startDate",
+      "endDate"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "library"
+  },
+  {
+    "name": "usersummary-stats-steps-monthly",
+    "path": "/usersummary-service/stats/steps/monthly/{date}/{n}",
+    "params": [
+      "date",
+      "n"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-steps-weekly",
+    "path": "/usersummary-service/stats/steps/weekly/{date}/{weeks}",
+    "params": [
+      "date",
+      "weeks"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "web"
+  },
+  {
+    "name": "usersummary-stats-stress-weekly",
+    "path": "/usersummary-service/stats/stress/weekly/{date}/{weeks}",
+    "params": [
+      "date",
+      "weeks"
+    ],
+    "query": [],
+    "service": "usersummary-service",
+    "source": "library"
   },
   {
     "name": "usersummary-stats-wellness-leaderboard-following",
@@ -1526,7 +1892,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "start",
       "startDate"
     ],
-    "service": "usersummary-service"
+    "service": "usersummary-service",
+    "source": "web"
   },
   {
     "name": "vivokidchallenge-ad-hoc-challenge-historical",
@@ -1536,7 +1903,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "vivokidchallenge-service"
+    "service": "vivokidchallenge-service",
+    "source": "web"
   },
   {
     "name": "vivokidchallenge-ad-hoc-challenge-non-completed",
@@ -1546,7 +1914,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "vivokidchallenge-service"
+    "service": "vivokidchallenge-service",
+    "source": "web"
   },
   {
     "name": "vivokidchallenge-team-challenge-historical",
@@ -1556,7 +1925,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "vivokidchallenge-service"
+    "service": "vivokidchallenge-service",
+    "source": "web"
   },
   {
     "name": "vivokidchallenge-team-challenge-non-completed",
@@ -1566,7 +1936,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "limit",
       "start"
     ],
-    "service": "vivokidchallenge-service"
+    "service": "vivokidchallenge-service",
+    "source": "web"
   },
   {
     "name": "weight-dayview",
@@ -1575,7 +1946,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "weight-service"
+    "service": "weight-service",
+    "source": "web"
   },
   {
     "name": "weight-latest",
@@ -1585,7 +1957,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date",
       "ignorePriority"
     ],
-    "service": "weight-service"
+    "service": "weight-service",
+    "source": "web"
   },
   {
     "name": "weight-range",
@@ -1597,7 +1970,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "includeAll"
     ],
-    "service": "weight-service"
+    "service": "weight-service",
+    "source": "web"
   },
   {
     "name": "weight-weekly-range",
@@ -1607,7 +1981,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "endDate"
     ],
     "query": [],
-    "service": "weight-service"
+    "service": "weight-service",
+    "source": "web"
   },
   {
     "name": "wellness-body-battery-events",
@@ -1616,14 +1991,27 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-body-battery-messaging-today",
     "path": "/wellness-service/wellness/bodyBattery/messagingToday",
     "params": [],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
+  },
+  {
+    "name": "wellness-body-battery-reports-daily",
+    "path": "/wellness-service/wellness/bodyBattery/reports/daily",
+    "params": [],
+    "query": [
+      "startDate",
+      "endDate"
+    ],
+    "service": "wellness-service",
+    "source": "library"
   },
   {
     "name": "wellness-daily-events",
@@ -1634,7 +2022,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "calendarDate"
     ],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-daily-heart-rate",
@@ -1643,7 +2032,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "date"
     ],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-daily-im",
@@ -1652,7 +2042,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-daily-respiration",
@@ -1661,7 +2052,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-daily-sleep-data",
@@ -1673,7 +2065,18 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date",
       "nonSleepBufferMinutes"
     ],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
+  },
+  {
+    "name": "wellness-daily-spo2",
+    "path": "/wellness-service/wellness/daily/spo2/{date}",
+    "params": [
+      "date"
+    ],
+    "query": [],
+    "service": "wellness-service",
+    "source": "library"
   },
   {
     "name": "wellness-daily-spo2acclimation",
@@ -1682,7 +2085,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-daily-stress",
@@ -1691,7 +2095,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-daily-summary-chart",
@@ -1700,7 +2105,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
     "query": [
       "date"
     ],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-floors-chart-data-daily",
@@ -1709,7 +2115,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-goals-consolidated-pushes",
@@ -1718,7 +2125,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-goals-consolidated-steps",
@@ -1727,7 +2135,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-stats-hourly-im",
@@ -1737,14 +2146,16 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "days"
     ],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellness-sync-timestamp",
     "path": "/wellness-service/wellness/syncTimestamp",
     "params": [],
     "query": [],
-    "service": "wellness-service"
+    "service": "wellness-service",
+    "source": "web"
   },
   {
     "name": "wellnessactivity-activity-summary",
@@ -1753,7 +2164,8 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "date"
     ],
     "query": [],
-    "service": "wellnessactivity-service"
+    "service": "wellnessactivity-service",
+    "source": "web"
   },
   {
     "name": "workout",
@@ -1762,21 +2174,24 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "id"
     ],
     "query": [],
-    "service": "workout-service"
+    "service": "workout-service",
+    "source": "web"
   },
   {
     "name": "workout-types",
     "path": "/workout-service/workout/types",
     "params": [],
     "query": [],
-    "service": "workout-service"
+    "service": "workout-service",
+    "source": "web"
   },
   {
     "name": "workout-types-sport",
     "path": "/workout-service/workout/types/sport",
     "params": [],
     "query": [],
-    "service": "workout-service"
+    "service": "workout-service",
+    "source": "web"
   },
   {
     "name": "workout-workouts",
@@ -1791,21 +2206,24 @@ CATALOG: list[dict[str, Any]] = json.loads(
       "sharedWorkoutsOnly",
       "start"
     ],
-    "service": "workout-service"
+    "service": "workout-service",
+    "source": "web"
   },
   {
     "name": "workout-workouts-sport-types",
     "path": "/workout-service/workouts/sport-types",
     "params": [],
     "query": [],
-    "service": "workout-service"
+    "service": "workout-service",
+    "source": "web"
   },
   {
     "name": "workout-workouts-sport-types-count",
     "path": "/workout-service/workouts/sport-types/count",
     "params": [],
     "query": [],
-    "service": "workout-service"
+    "service": "workout-service",
+    "source": "web"
   }
 ]"""
 )

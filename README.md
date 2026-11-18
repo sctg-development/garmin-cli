@@ -224,7 +224,7 @@ gc metrics cycling-ftp
 ### Discovered endpoints
 
 `gc connect` returns the raw payload of any read-only endpoint found in the Garmin Connect web app
-(about 95, listed by `gc connect list`). The table is generated from `docs/garmin-connect.openapi.json`
+(about 210, listed by `gc connect list`). The table is generated from `docs/garmin-connect.openapi.json`
 and is shared with `garmin-ts connect`.
 
 ```bash
